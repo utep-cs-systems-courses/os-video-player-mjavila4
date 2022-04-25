@@ -23,7 +23,7 @@ print(f'Reading frame {count} {success}')
 while success and count < 72:
 
   # write the current frame out as a jpeg image
-  cv2.imwrite(f"{outputDir}/frame_{count:04d}.bmp", image)   
+  cv2.imwrite(f"{outputDir}/frame_{count:04d}.jpg", image)
 
   success,image = vidcap.read()
   print(f'Reading frame {count}')
