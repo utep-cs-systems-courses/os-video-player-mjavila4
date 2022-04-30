@@ -4,12 +4,14 @@ QUEUE_LIMIT = 10
 
 
 class Queue:
-    queue = []
 
-    queue_lock = threading.Lock()
+    def __init__(self):
+        self.queue = []
+        self.signal = False
 
-    fill = threading.Semaphore(0)
-    empty = threading.Semaphore(QUEUE_LIMIT)
+        self.queue_lock = threading.Lock()
+        self.fill = threading.Semaphore(0)
+        self.empty = threading.Semaphore(QUEUE_LIMIT)
 
     def enqueue(self, resource):
         self.empty.acquire()
@@ -25,3 +27,12 @@ class Queue:
         self.queue_lock.release()
         self.empty.release()
         return resource
+
+    def is_empty(self):
+        return len(self.queue) == 0
+
+    def signal_off(self):
+        self.signal = True
+
+    def is_off(self):
+        return self.signal
