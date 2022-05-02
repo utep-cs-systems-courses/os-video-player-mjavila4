@@ -7,10 +7,13 @@ class Queue:
 
     def __init__(self):
         self.queue = []
+        # Signal to other threads that all resources produced/consumed
         self.signal = False
 
         self.queue_lock = threading.Lock()
+        # Amount of resources
         self.fill = threading.Semaphore(0)
+        # Queue Bound
         self.empty = threading.Semaphore(QUEUE_LIMIT)
 
     def enqueue(self, resource):
